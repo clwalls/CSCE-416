@@ -1,4 +1,4 @@
 Metric Report
-Received:108
-Sent:110
-RTTs:109
+Received:985
+Sent:1001
+RTTs:1000
