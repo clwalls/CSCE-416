@@ -7,8 +7,8 @@ public class TCPoverUDPUtils{
     public static final int DATAGRAM_BUFFER_SIZE = 4096;
 
     public static TransportStrategy getTransportStrategy(){
-        return new OneByOneStrategy();
-        //return new StudentStrategy();
+        //return new OneByOneStrategy();
+        return new StudentStrategy();
     }
 
     public static Map<String,String> parseSettings(String fileName){

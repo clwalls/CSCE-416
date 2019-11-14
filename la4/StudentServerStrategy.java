@@ -15,6 +15,8 @@ public class StudentServerStrategy implements ServerStrategy{
 
     public void setFile(List<String> file){
         this.file = file;
+        acks = new boolean[file.size()];
+        
     }
 
     public void reset(){
@@ -35,6 +37,7 @@ public class StudentServerStrategy implements ServerStrategy{
 
     public List<Message> sendRcv(List<Message> clientMsgs){
         for(Message m: clientMsgs){
+            // Mark ACKS as a boolean
             acks[m.num-1] =true;
             System.out.println(m.num+","+m.msg);
         }
@@ -44,12 +47,11 @@ public class StudentServerStrategy implements ServerStrategy{
         List<Message> msgs = new ArrayList<Message>();
 
         // Do this operation cwnd amount of times
-        for (int i =0;i<cwnd;i++){
-            while( firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
+    
+        while( firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
 
-            if(firstUnACKed < acks.length) {
-                msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));   
-            }
+        if((firstUnACKed < acks.length) && (file.get(firstUnACKed) != null)) {
+            msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));   
         }
         // incrementation of cwnd
         // Slow Start
