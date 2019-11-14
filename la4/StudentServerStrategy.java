@@ -22,6 +22,7 @@ public class StudentServerStrategy implements ServerStrategy{
             acks[m.num-1] =true;
             System.out.println(m.num+","+m.msg);
         }
+
         int firstUnACKed = 0;
         
         List<Message> msgs = new ArrayList<Message>();
