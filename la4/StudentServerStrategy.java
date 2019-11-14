@@ -31,7 +31,6 @@ public class StudentServerStrategy implements ServerStrategy{
     *             additive increase every RTT: cwnd++ 
     *
     *            TCP RENO: multiplative decrease, after packet loss: cwnd = cwnd /2, ssthresh = cwnd 
-    *            TCP TAHOE: set cwnd to 1
     */
 
     public List<Message> sendRcv(List<Message> clientMsgs){
@@ -44,11 +43,25 @@ public class StudentServerStrategy implements ServerStrategy{
         
         List<Message> msgs = new ArrayList<Message>();
 
-        while( firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
+        // Do this operation cwnd amount of times
+        for (int i =0;i<cwnd;i++){
+            while( firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
 
-        if(firstUnACKed < acks.length) {
-            msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));   
+            if(firstUnACKed < acks.length) {
+                msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));   
+            }
         }
+        // incrementation of cwnd
+        // Slow Start
+        if (cwnd <= ssthresh){
+            cwnd = 2*cwnd;
+        }
+
+        // Congestion Avoidance
+        if (cwnd > ssthresh){
+            cwnd++;
+        }
+
         return msgs;
     }
     
