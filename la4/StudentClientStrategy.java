@@ -25,14 +25,17 @@ public class StudentClientStrategy implements ClientStrategy{
     }
 
 
+
     /*
     * TODO: Increment cwnd everytime RTT increases. Program starts in cwnd
-    * Slow-start: if msg == ACK, cwnd = 2*cwnd
+    * 
     * Congestion Avoidance: 
-    *       if msg == ACK && cwnd <= ssthresh, cwnd++
-    *       if msg == ACK && cwnd > ssthresh, cwnd = cwnd + 1 / [ cwnd ] 
+    *       Slow Start: if msg == ACK && cwnd <= ssthresh, cwnd = 2*cwnd
+    *       Congestion Avoidance: if msg == ACK && cwnd > ssthresh, 
+                additive increase every RTT: cwnd++ 
+                multiplative decrease, after packet loss: cwnd = cwnd /2, ssthresh = cwnd 
     */
-    
+
     /* 
     * What this method does: Builds a "file" that is the size of the server's message and then returns an array of ACK messages 
     * Format: ACK #, "ACK"
