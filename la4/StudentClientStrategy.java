@@ -12,7 +12,7 @@ public class StudentClientStrategy implements ClientStrategy{
 
     public void reset(){
         file = new ArrayList<String>();
-        cwmd = 1;
+        cwnd = 1;
         ssthresh = 20;
     }
 
@@ -30,7 +30,7 @@ public class StudentClientStrategy implements ClientStrategy{
     /*
     * TODO: Increment cwnd everytime RTT increases. Program starts in cwnd
     * 
-    * Congestion Avoidance: 
+    * Congestion Control: 
     *       Slow Start: if msg == ACK && cwnd <= ssthresh, cwnd = 2*cwnd
     *       Congestion Avoidance: if msg == ACK && cwnd > ssthresh, 
     *             additive increase every RTT: cwnd++ 
