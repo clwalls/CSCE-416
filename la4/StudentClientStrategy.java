@@ -5,14 +5,15 @@ public class StudentClientStrategy implements ClientStrategy{
     //(Congestion window) cwnd++ whenever RTT incereases, cuts in half when packet loss occurs
     // Note: online examples have the sender doing congestion control and not the server
     int cwnd;
-
+    int ssthresh;
     public StudentClientStrategy(){
         reset();
-        cwnd = 1;
     }
 
     public void reset(){
         file = new ArrayList<String>();
+        cwmd = 1;
+        ssthresh = 20;
     }
 
     public List<String> getFile(){
@@ -32,8 +33,10 @@ public class StudentClientStrategy implements ClientStrategy{
     * Congestion Avoidance: 
     *       Slow Start: if msg == ACK && cwnd <= ssthresh, cwnd = 2*cwnd
     *       Congestion Avoidance: if msg == ACK && cwnd > ssthresh, 
-                additive increase every RTT: cwnd++ 
-                multiplative decrease, after packet loss: cwnd = cwnd /2, ssthresh = cwnd 
+    *             additive increase every RTT: cwnd++ 
+    *
+    *            TCP RENO: multiplative decrease, after packet loss: cwnd = cwnd /2, ssthresh = cwnd 
+    *            TCP TAHOE: set cwnd to 1
     */
 
     /* 
