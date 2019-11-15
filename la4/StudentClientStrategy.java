@@ -30,16 +30,20 @@ public class StudentClientStrategy implements ClientStrategy{
         }
         System.out.println("--");
         
-        //Finds first non-null message, 
-        int nextNeeded = 0;
-        while(nextNeeded <file.size() && file.get(nextNeeded)!=null)
-            ++nextNeeded;
 
-        
-        // ACK the message, add to list, return list of ACKs
-        Message m=new Message(nextNeeded,"ACK");
         List<Message> ack = new ArrayList<Message>();
-        ack.add(m);
+        for (int i = 0; i < file.size(); i++){
+            Message m=new Message(i+1,"ACK");
+            ack.add(m);
+        }
+
+        /* This prints out all the messages in ack
+        for (Message m: ack){
+            System.out.print(m.num + ":" + m.msg + " ");
+        }
+        System.out.println();
+        */
+
         return ack;
 
     }

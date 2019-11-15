@@ -41,6 +41,14 @@ public class StudentServerStrategy implements ServerStrategy{
             acks[m.num-1] =true;
             System.out.println(m.num+","+m.msg);
         }
+        System.out.println("--");
+        
+        /*  This is for printing out the contents of ack
+        for (int i = 0; i < acks.length;i++){
+            System.out.print(i + ":" + acks[i] + " ");
+        }
+        System.out.println();
+        */
 
         int firstUnACKed = 0;
         List<Message> msgs = new ArrayList<Message>();
@@ -52,10 +60,6 @@ public class StudentServerStrategy implements ServerStrategy{
                 if (acks[i] == false){
                     unACK.add(new Message(i,file.get(i)));
                 }
-                /*while(firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
-                if(firstUnACKed < acks.length) {
-                    msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));
-                }*/
             }
 
             for (int j =0; j< cwnd;j++){
