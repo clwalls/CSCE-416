@@ -3,9 +3,6 @@ import java.util.*;
 public class StudentServerStrategy implements ServerStrategy{
     List<String> file;
     boolean[] acks;
-
-    //(Congestion window) cwnd++ whenever RTT incereases, cuts in half when packet loss occurs
-    // Note: online examples have the sender doing congestion control and not the server
     int cwnd;
     int ssthresh;
 
@@ -25,8 +22,6 @@ public class StudentServerStrategy implements ServerStrategy{
     }
 
      /*
-    * TODO: Increment cwnd everytime RTT increases. Program starts in cwnd
-    * 
     * Congestion Control: 
     *       Slow Start: if msg == ACK && cwnd <= ssthresh, cwnd = 2*cwnd
     *       Congestion Avoidance: if msg == ACK && cwnd > ssthresh, 
@@ -38,11 +33,11 @@ public class StudentServerStrategy implements ServerStrategy{
     public List<Message> sendRcv(List<Message> clientMsgs){
         for(Message m: clientMsgs){
             // Mark ACKS as a boolean
-            acks[m.num-1] =true;
+            acks[m.num] =true;
             System.out.println(m.num+","+m.msg);
         }
         System.out.println("--");
-        
+
         /*  This is for printing out the contents of ack
         for (int i = 0; i < acks.length;i++){
             System.out.print(i + ":" + acks[i] + " ");
@@ -50,29 +45,18 @@ public class StudentServerStrategy implements ServerStrategy{
         System.out.println();
         */
 
-        int firstUnACKed = 0;
         List<Message> msgs = new ArrayList<Message>();
-        ArrayList<Message> unACK = new ArrayList<Message>();
-
-
-
             for (int i = 0; i < acks.length;i++){
-                if (acks[i] == false){
-                    unACK.add(new Message(i,file.get(i)));
+                if ((acks[i] != true) && (msgs.size() < cwnd)){
+                    msgs.add(new Message(i,file.get(i)));
                 }
             }
 
-            for (int j =0; j< cwnd;j++){
-                if (j < unACK.size()) 
-                    msgs.add(unACK.get(j));
-            }
-
-        // incrementation of cwnd
         // Slow Start and Congestion Avoidance
         if (cwnd <= ssthresh){
             cwnd = 2*cwnd;
         } else if (cwnd > ssthresh){
-            cwnd++;
+                cwnd++;
         }
 
         return msgs;

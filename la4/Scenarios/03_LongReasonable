@@ -1,0 +1,7 @@
+file_name=03_ReasonableDay.txt
+length=10000
+drop=0.002
+delay=0.001
+duplicate=0.0005
+min=10
+max=12

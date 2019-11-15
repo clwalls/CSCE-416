@@ -19,23 +19,19 @@ public class StudentClientStrategy implements ClientStrategy{
     * Format: ACK #, "ACK"
     */
     public List<Message> sendRcv(List<Message> serverMsgs){
-        // For each message on the list, print the SEQ/ACK number and Message
-        for(Message m : serverMsgs){
-            // This line builds up the file array to the size of the server message's ACK/SEQ number size.
-            while(file.size() < m.num+1) file.add(null);
-            
-            //File == serverMsgs (copy)
-            file.set(m.num,m.msg);
-            System.out.println(m.num+","+m.msg);
-        }
-        System.out.println("--");
-        
 
         List<Message> ack = new ArrayList<Message>();
-        for (int i = 0; i < file.size(); i++){
-            Message m=new Message(i+1,"ACK");
-            ack.add(m);
+        for(Message m : serverMsgs){
+            //This is what is used to check the file length in the tester
+            while(file.size() < m.num+1) file.add(null);
+            file.set(m.num,m.msg);
+
+            //Skip the middle man, just acknowledge everything
+            Message message=new Message(m.num,"ACK");
+            ack.add(message);
+            System.out.println(message.num+","+message.msg);
         }
+        System.out.println("--");
 
         /* This prints out all the messages in ack
         for (Message m: ack){
