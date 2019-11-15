@@ -44,25 +44,30 @@ public class StudentServerStrategy implements ServerStrategy{
 
         int firstUnACKed = 0;
         List<Message> msgs = new ArrayList<Message>();
+        ArrayList<Message> unACK = new ArrayList<Message>();
+
+
 
             for (int i = 0; i < acks.length;i++){
-                System.out.print(i + ":" + acks[i] + " ");
+                if (acks[i] == false){
+                    unACK.add(new Message(i,file.get(i)));
+                }
+                /*while(firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
+                if(firstUnACKed < acks.length) {
+                    msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));
+                }*/
             }
-            System.out.println();
-            
-            while(firstUnACKed < acks.length && acks[firstUnACKed]) ++firstUnACKed;
-            if(firstUnACKed < acks.length) {
-                msgs.add(new Message(firstUnACKed,file.get(firstUnACKed)));
+
+            for (int j =0; j< cwnd;j++){
+                if (j < unACK.size()) 
+                    msgs.add(unACK.get(j));
             }
 
         // incrementation of cwnd
-        // Slow Start
+        // Slow Start and Congestion Avoidance
         if (cwnd <= ssthresh){
             cwnd = 2*cwnd;
-        }
-    
-        // Congestion Avoidance
-        if (cwnd > ssthresh){
+        } else if (cwnd > ssthresh){
             cwnd++;
         }
 

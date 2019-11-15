@@ -28,7 +28,8 @@ public class StudentClientStrategy implements ClientStrategy{
             file.set(m.num,m.msg);
             System.out.println(m.num+","+m.msg);
         }
-
+        System.out.println("--");
+        
         //Finds first non-null message, 
         int nextNeeded = 0;
         while(nextNeeded <file.size() && file.get(nextNeeded)!=null)
