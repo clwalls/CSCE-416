@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Control<la4_b156474e>",
+            "request": "launch",
+            "mainClass": "Control",
+            "projectName": "la4_b156474e"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Network<la4_b156474e>",
+            "request": "launch",
+            "mainClass": "Network",
+            "projectName": "la4_b156474e"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TCPoverUDPUtils<la4_b156474e>",
+            "request": "launch",
+            "mainClass": "TCPoverUDPUtils",
+            "projectName": "la4_b156474e"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-clientTCPoverUDP<la4_b156474e>",
+            "request": "launch",
+            "mainClass": "clientTCPoverUDP",
+            "projectName": "la4_b156474e"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-serverTCPoverUDP<la4_b156474e>",
+            "request": "launch",
+            "mainClass": "serverTCPoverUDP",
+            "projectName": "la4_b156474e"
+        }
+    ]
+}

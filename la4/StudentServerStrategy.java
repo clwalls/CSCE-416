@@ -33,7 +33,7 @@ public class StudentServerStrategy implements ServerStrategy{
     public List<Message> sendRcv(List<Message> clientMsgs){
         for(Message m: clientMsgs){
             // Mark ACKS as a boolean
-            acks[m.num] =true;
+            acks[m.num] = true;
             System.out.println(m.num+","+m.msg);
         }
         System.out.println("--");
@@ -53,10 +53,12 @@ public class StudentServerStrategy implements ServerStrategy{
             }
 
         // Slow Start and Congestion Avoidance
+        if (cwnd < 250){
         if (cwnd <= ssthresh){
             cwnd = 2*cwnd;
         } else if (cwnd > ssthresh){
                 cwnd++;
+        }
         }
 
         return msgs;
